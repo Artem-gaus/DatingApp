@@ -1,0 +1,29 @@
+using System.Linq;
+using DatingApp.API.Data;
+using Microsoft.AspNetCore.Mvc;
+
+namespace DatingApp.API.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class ValuesController : ControllerBase
+    {
+        private readonly DataContext context;
+        public ValuesController(DataContext context)
+        {
+            this.context = context;
+        }
+
+        [HttpGet]
+        public IActionResult GetValueList()
+        {
+            return Ok(context.Values.ToList());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetValue(int id)
+        {
+            return Ok(context.Values.FirstOrDefault(value => id == value.Id));
+        }
+    }
+}
